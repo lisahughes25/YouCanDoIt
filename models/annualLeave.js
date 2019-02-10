@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 //AnnualLeave
 var annualLeavechema = mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  //_id: mongoose.Types.ObjectId,
   person: { 
     type: mongoose.Types.ObjectId, 
     ref: 'Person'

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 //HoursWorked
 var hoursWorkedClaimSchema = mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  //_id: mongoose.Types.ObjectId,
   person: { 
     type: mongoose.Types.ObjectId, 
     ref: 'Person'
