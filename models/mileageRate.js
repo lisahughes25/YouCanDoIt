@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 //MileageRate
 var mileageRateSchema = mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  //_id: mongoose.Types.ObjectId,
   mileageRateName: String,
   mileageRate: Number,
   isActive: Boolean,

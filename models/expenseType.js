@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 //ExpenseType
 var expenseTypeSchema = mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  //_id: mongoose.Types.ObjectId,
   expenseName: String,
   isActive: Boolean,
   dateCreated: {

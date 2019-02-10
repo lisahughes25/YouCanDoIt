@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 //MileageClaim
 var mileageClaimSchema = mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  //_id: mongoose.Types.ObjectId,
   person: { 
     type: mongoose.Types.ObjectId, 
     ref: 'Person'
@@ -18,6 +18,6 @@ var mileageClaimSchema = mongoose.Schema({
   }
 });
 
-var MileageClaimed = mongoose.model('MileageClaimed', mileageClaimedSchema);
+var MileageClaimed = mongoose.model('MileageClaimed', mileageClaimSchema);
 
 module.exports = MileageClaimed;

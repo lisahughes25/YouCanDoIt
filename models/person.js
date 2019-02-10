@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 //Person
 var personSchema = new mongoose.Schema({
-  _id: mongoose.Types.ObjectId,
+  //_id: mongoose.Types.ObjectId,
   firstName: {
     type: String,
     required: true
