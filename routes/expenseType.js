@@ -4,26 +4,29 @@
 const errors = require('restify-errors');
 
 /**
- * Model Schema
+ * Model Schema - picking up the schema of Expense Type
  */
-const Activity = require('../models/activity');
+const ExpenseType = require('../models/expenseType');
 
+//Make it public
 module.exports = function(server) {
 
 	/**
-	 * POST
+	 * POST - Add new record to the database. On the URL
 	 */
-	server.post('/activity', (req, res, next) => {
+	server.post('/expenseType', (req, res, next) => {
+    //capture error - if not json give me this error
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
 			);
-		}
-
+    }
+    
+//The request body that forms the POST
 		let data = req.body || {};
 
-		let activity = new Activity(data);
-		activity.save(function(err) {
+		let expenseType = new ExpenseType(data);
+		expenseType.save(function(err) {
 			if (err) {
 				console.error(err);
 				return next(new errors.InternalError(err.message));
@@ -39,8 +42,8 @@ module.exports = function(server) {
 	/**
 	 * LIST
 	 */
-	server.get('/activity', (req, res, next) => {
-		Activity.find(req.params, function(err, docs) {
+	server.get('/expenseType', (req, res, next) => {
+		ExpenseType.find(req.params, function(err, docs) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -56,8 +59,8 @@ module.exports = function(server) {
 	/**
 	 * GET
 	 */
-	server.get('/activity/:activity_id', (req, res, next) => {
-		Activity.findOne({ _id: req.params.activity_id }, function(err, doc) {
+	server.get('/expenseType/:expenseType_id', (req, res, next) => {
+		ExpenseType.findOne({ _id: req.params.expenseType_id }, function(err, doc) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -73,7 +76,7 @@ module.exports = function(server) {
 	/**
 	 * UPDATE
 	 */
-	server.put('/activity/:activity_id', (req, res, next) => {
+	server.put('/expenseType/:expenseType_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
@@ -83,10 +86,10 @@ module.exports = function(server) {
 		let data = req.body || {};
 
 		if (!data._id) {
-			data = Object.assign({}, data, { _id: req.params.activity_id });
+			data = Object.assign({}, data, { _id: req.params.expenseType_id });
 		}
 
-		Activity.findOne({ _id: req.params.activity_id }, function(err, doc) {
+		ExpenseType.findOne({ _id: req.params.expenseType_id }, function(err, doc) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -100,7 +103,7 @@ module.exports = function(server) {
 				);
 			}
 
-			Activity.update({ _id: data._id }, data, function(err) {
+			ExpenseType.update({ _id: data._id }, data, function(err) {
 				if (err) {
 					console.error(err);
 					return next(
@@ -117,8 +120,8 @@ module.exports = function(server) {
 	/**
 	 * DELETE
 	 */
-	server.del('/activity/:activity_id', (req, res, next) => {
-		Activity.deleteOne({ _id: req.params.activity_id }, function(err) {
+	server.del('/expenseType/:expenseType_id', (req, res, next) => {
+		ExpenseType.deleteOne({ _id: req.params.expenseType_id }, function(err) {
 			if (err) {
 				console.error(err);
 				return next(

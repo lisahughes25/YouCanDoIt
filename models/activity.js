@@ -1,3 +1,4 @@
+//Using Mongoose library
 var mongoose = require('mongoose');
 
 //Activity

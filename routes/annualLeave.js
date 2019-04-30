@@ -6,14 +6,14 @@ const errors = require('restify-errors');
 /**
  * Model Schema
  */
-const Activity = require('../models/activity');
+const AnnualLeave = require('../models/annualLeave');
 
 module.exports = function(server) {
 
 	/**
 	 * POST
 	 */
-	server.post('/activity', (req, res, next) => {
+	server.post('/annualLeave', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
@@ -22,8 +22,8 @@ module.exports = function(server) {
 
 		let data = req.body || {};
 
-		let activity = new Activity(data);
-		activity.save(function(err) {
+		let annualLeave = new AnnualLeave(data);
+		annualLeave.save(function(err) {
 			if (err) {
 				console.error(err);
 				return next(new errors.InternalError(err.message));
@@ -39,8 +39,8 @@ module.exports = function(server) {
 	/**
 	 * LIST
 	 */
-	server.get('/activity', (req, res, next) => {
-		Activity.find(req.params, function(err, docs) {
+	server.get('/annualLeave', (req, res, next) => {
+		AnnualLeave.find(req.params, function(err, docs) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -56,8 +56,8 @@ module.exports = function(server) {
 	/**
 	 * GET
 	 */
-	server.get('/activity/:activity_id', (req, res, next) => {
-		Activity.findOne({ _id: req.params.activity_id }, function(err, doc) {
+	server.get('/annualLeave/:annualLeave_id', (req, res, next) => {
+		AnnualLeave.findOne({ _id: req.params.annualLeave_id }, function(err, doc) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -73,7 +73,7 @@ module.exports = function(server) {
 	/**
 	 * UPDATE
 	 */
-	server.put('/activity/:activity_id', (req, res, next) => {
+	server.put('/annualLeave/:annualLeave_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
@@ -83,10 +83,10 @@ module.exports = function(server) {
 		let data = req.body || {};
 
 		if (!data._id) {
-			data = Object.assign({}, data, { _id: req.params.activity_id });
+			data = Object.assign({}, data, { _id: req.params.annualLeave_id });
 		}
 
-		Activity.findOne({ _id: req.params.activity_id }, function(err, doc) {
+		AnnualLeave.findOne({ _id: req.params.annualLeave_id }, function(err, doc) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -100,7 +100,7 @@ module.exports = function(server) {
 				);
 			}
 
-			Activity.update({ _id: data._id }, data, function(err) {
+			AnnualLeave.update({ _id: data._id }, data, function(err) {
 				if (err) {
 					console.error(err);
 					return next(
@@ -117,8 +117,8 @@ module.exports = function(server) {
 	/**
 	 * DELETE
 	 */
-	server.del('/activity/:activity_id', (req, res, next) => {
-		Activity.deleteOne({ _id: req.params.activity_id }, function(err) {
+	server.del('/annualLeave/:annualLeave_id', (req, res, next) => {
+		AnnualLeave.deleteOne({ _id: req.params.annualLeave_id }, function(err) {
 			if (err) {
 				console.error(err);
 				return next(

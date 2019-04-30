@@ -1,12 +1,12 @@
-// var Activity = require('./models/activity');
-// var AnnualLeave = require('./models/annualLeave');
-// var ExpenseClaim = require('./models/expenseClaim');
-// var ExpenseType = require('./models/expenseType');
-// var HoursWorked = require('./models/hoursWorked');
-// var HoursWorkedClaimActivity = require('./models/hoursWorkedClaimActivity');
-// var MileageClaimed = require('./models/mileageClaimed');
-// var MileageRate = require('./models/mileageRate');
-// var Person = require('./models/person');
+/** To do - Routes for ...
+var AnnualLeave = require('./models/annualLeave');
+var ExpenseClaim = require('./models/expenseClaim');
+var ExpenseType = require('./models/expenseType');
+var HoursWorked = require('./models/hoursWorked');
+var HoursWorkedClaimActivity = require('./models/hoursWorkedClaimActivity');
+var MileageClaimed = require('./models/mileageClaimed');
+var MileageRate = require('./models/mileageRate');
+*/
 
 /**
  * Module Dependencies
@@ -27,11 +27,11 @@ const server = restify.createServer({
 /**
   * Middleware
   */
+ //JSON
 server.use(restify.plugins.bodyParser());
-//server.use(restify.plugins.jsonBodyParser({ mapParams: true }))
-server.use(restify.plugins.acceptParser(server.acceptable))
-server.use(restify.plugins.queryParser({ mapParams: true }))
-server.use(restify.plugins.fullResponse())
+server.use(restify.plugins.acceptParser(server.acceptable));
+server.use(restify.plugins.queryParser({ mapParams: true }));
+server.use(restify.plugins.fullResponse());
 
 /**
   * Start Server, Connect to DB & Require Routes
@@ -50,7 +50,14 @@ server.listen(config.port, () => {
 
 	db.once('open', () => {
       require('./routes/activity')(server);
-      require('./routes/person')(server);
+			require('./routes/annualLeave')(server);
+			require('./routes/person')(server);
+			require('./routes/expenseClaim')(server);
+			require('./routes/expenseType')(server);
+			require('./routes/hoursWorked')(server);
+			require('./routes/hoursWorkedClaimActivity')(server);
+			require('./routes/mileageClaimed')(server);
+			require('./routes/mileageRate')(server);
 			console.log(`Server is listening on port ${config.port}`);
 	});
 });

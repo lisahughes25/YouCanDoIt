@@ -118,7 +118,7 @@ module.exports = function(server) {
 	 * DELETE
 	 */
 	server.del('/people/:person_id', (req, res, next) => {
-		People.remove({ _id: req.params.person_id }, function(err) {
+		People.deleteOne({ _id: req.params.person_id }, function(err) {
 			if (err) {
 				console.error(err);
 				return next(
