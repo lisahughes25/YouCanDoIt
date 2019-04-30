@@ -6,24 +6,25 @@ const errors = require('restify-errors');
 /**
  * Model Schema
  */
-const Activity = require('../models/activity');
+const ExpenseClaim = require('../models/expenseClaim');
 
 module.exports = function(server) {
 
 	/**
 	 * POST
 	 */
-	server.post('/activity', (req, res, next) => {
+	server.post('/expenseClaim', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
 			);
-		}
+    }
+    
 
 		let data = req.body || {};
 
-		let activity = new Activity(data);
-		activity.save(function(err) {
+		let expenseClaim = new ExpenseClaim(data);
+		expenseClaim.save(function(err) {
 			if (err) {
 				console.error(err);
 				return next(new errors.InternalError(err.message));
@@ -39,8 +40,8 @@ module.exports = function(server) {
 	/**
 	 * LIST
 	 */
-	server.get('/activity', (req, res, next) => {
-		Activity.find(req.params, function(err, docs) {
+	server.get('/expenseClaim', (req, res, next) => {
+		ExpenseClaim.find(req.params, function(err, docs) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -56,8 +57,8 @@ module.exports = function(server) {
 	/**
 	 * GET
 	 */
-	server.get('/activity/:activity_id', (req, res, next) => {
-		Activity.findOne({ _id: req.params.activity_id }, function(err, doc) {
+	server.get('/expenseClaim/:expenseClaim_id', (req, res, next) => {
+		ExpenseClaim.findOne({ _id: req.params.expenseClaim_id }, function(err, doc) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -73,7 +74,7 @@ module.exports = function(server) {
 	/**
 	 * UPDATE
 	 */
-	server.put('/activity/:activity_id', (req, res, next) => {
+	server.put('/expenseClaim/:expenseClaim_id', (req, res, next) => {
 		if (!req.is('application/json')) {
 			return next(
 				new errors.InvalidContentError("Expects 'application/json'"),
@@ -83,10 +84,10 @@ module.exports = function(server) {
 		let data = req.body || {};
 
 		if (!data._id) {
-			data = Object.assign({}, data, { _id: req.params.activity_id });
+			data = Object.assign({}, data, { _id: req.params.expenseClaim_id });
 		}
 
-		Activity.findOne({ _id: req.params.activity_id }, function(err, doc) {
+		ExpenseClaim.findOne({ _id: req.params.expenseClaim_id }, function(err, doc) {
 			if (err) {
 				console.error(err);
 				return next(
@@ -100,7 +101,7 @@ module.exports = function(server) {
 				);
 			}
 
-			Activity.update({ _id: data._id }, data, function(err) {
+			ExpenseClaim.update({ _id: data._id }, data, function(err) {
 				if (err) {
 					console.error(err);
 					return next(
@@ -117,8 +118,8 @@ module.exports = function(server) {
 	/**
 	 * DELETE
 	 */
-	server.del('/activity/:activity_id', (req, res, next) => {
-		Activity.deleteOne({ _id: req.params.activity_id }, function(err) {
+	server.del('/expenseClaim/:expenseClaim_id', (req, res, next) => {
+		ExpenseClaim.deleteOne({ _id: req.params.expenseClaim_id }, function(err) {
 			if (err) {
 				console.error(err);
 				return next(
